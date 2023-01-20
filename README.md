@@ -214,10 +214,6 @@ will be the largest batch size supported by the available hardware.*
 #### Determining the feasible batch sizes and estimating training throughput
 
 
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
-
 -   For a given model and optimizer, there will typically be a range of batch
     sizes supported by the available hardware. The limiting factor is usually
     accelerator memory.
@@ -255,13 +251,7 @@ will be the largest batch size supported by the available hardware.*
     changed (e.g. a different model architecture may allow a larger batch size
     to fit in memory).
 
-</details>
-
 #### Choosing the batch size to minimize training time
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 <p align="center">Training time = (time per step) x (total number of steps)</p>
@@ -305,13 +295,7 @@ will be the largest batch size supported by the available hardware.*
 -   There is no point in using a larger batch size if it ends up increasing the
     training time.
 
-</details>
-
 #### Choosing the batch size to minimize resource consumption
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 -   There are two types of resource costs associated with increasing the batch
@@ -353,13 +337,7 @@ will be the largest batch size supported by the available hardware.*
         increase in consumption per step might outweigh the reduction in the
         number of steps.
 
-</details>
-
 #### Changing the batch size requires re-tuning most hyperparameters
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 -   The optimal values of most hyperparameters are sensitive to the batch size.
@@ -371,21 +349,13 @@ will be the largest batch size supported by the available hardware.*
     difficult, time consuming, and expensive to re-tune everything for the new
     batch size.
 
-</details>
-
 #### How batch norm interacts with the batch size
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 -   Batch norm is complicated and, in general, should use a different batch size
     than the gradient computation to compute statistics. See the
     [batch norm section](#batch-normalization-implementation-details) for a
     detailed discussion.
-
-</details>
 
 ### Choosing the initial configuration
 
@@ -541,10 +511,6 @@ hyperparameters to balance resource costs with scientific value.*
 
 #### Identifying scientific, nuisance, and fixed hyperparameters
 
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
-
 -   For a given goal, all hyperparameters will be either **scientific
     hyperparameters**, **nuisance hyperparameters**, or **fixed
     hyperparameters**.
@@ -685,13 +651,7 @@ hyperparameters to balance resource costs with scientific value.*
         of values that work well in each of the optimizers is typically
         different by several orders of magnitude.
 
-</details>
-
 #### Creating a set of studies
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 -   Once we have identified the scientific and nuisance hyperparameters, we
@@ -748,13 +708,7 @@ hyperparameters to balance resource costs with scientific value.*
         search algorithm, we need to make sure somehow that it searches the
         scientific parameters uniformly.
 
-</details>
-
 #### Striking a balance between informative and affordable experiments
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 -   When designing a study or sequence of studies, we need to allocate a limited
@@ -794,8 +748,6 @@ hyperparameters to balance resource costs with scientific value.*
         enough space extensively enough) to fairly compare the scientific
         hyperparameters (as described in greater detail
         [below](#extracting-insight-from-experimental-results)).
-
-</details>
 
 ### Extracting insight from experimental results
 
@@ -843,10 +795,6 @@ if issues are discovered, revise the experiments and rerun them.*
 
 #### Identifying bad search space boundaries
 
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
-
 
 -   A search space is suspicious if the best point sampled from it is close to
     its boundary. We might find an even better point if we expanded the search
@@ -878,13 +826,7 @@ if issues are discovered, revise the experiments and rerun them.*
         preventing it from accessing higher learning
         rates](#how-can-optimization-failures-be-debugged-and-mitigated).
 
-</details>
-
 #### Not sampling enough points in the search space
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 -   In general,
@@ -896,13 +838,7 @@ if issues are discovered, revise the experiments and rerun them.*
     repeatedly looking at various hyperparameter axis plots and trying to get a
     sense of how many points are in the "good" region of the search space.
 
-</details>
-
 #### Examining the training curves
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 ***Summary:*** *Examining the training curves is an easy way to identify common
@@ -991,13 +927,7 @@ failure modes and can help us prioritize what actions to take next.*
     training loss *increasing* during training usually indicates a bug in the
     training pipeline).
 
-</details>
-
 #### Detecting whether a change is useful with isolation plots
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 
 <p align="center" id="figure-2">
@@ -1031,13 +961,7 @@ trained on ImageNet.">
     axis plot and taking the best trial in each vertical slice defined by the
     buckets.
 
-</details>
-
 #### Automate generically useful plots
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 -   The more effort it is to generate plots, the less likely we are to look at
     them as much as we should, so it behooves us to set up our infrastructure to
@@ -1051,8 +975,6 @@ trained on ImageNet.">
     be useful. Although the ones described above are a good starting point, to
     paraphrase Geoffrey Hinton, "Every time you plot something new, you learn
     something new."
-
-</details>
 
 ### Determining whether to adopt a training pipeline change or hyperparameter configuration
 
@@ -1223,10 +1145,6 @@ should be tuned at all.*
 
 #### Algorithm for picking an initial candidate for max_train_steps using a learning rate sweep
 
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
-
 -   This procedure assumes it is possible to not only "perfectly" fit the
     training set, but to do so using a constant learning rate schedule.
 -   If it is possible to perfectly fit the entire training set, then there must
@@ -1245,8 +1163,6 @@ should be tuned at all.*
         is necessary.
     -   At a minimum, we should check that the optimal learning rate in the
         study is not at the boundary of the search space.
-
-</details>
 
 ### Deciding how long to train when training is compute-bound
 
@@ -1284,10 +1200,6 @@ should be tuned at all.*
         is using all the extra training steps with too small of a learning rate.
 
 #### Round 1
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 -   Unfortunately, there is no guarantee that good hyperparameters found in
     short, incomplete training are still good choices when training length is
@@ -1330,13 +1242,7 @@ should be tuned at all.*
                 Meta-Optimization](https://arxiv.org/abs/1803.02021) describes
                 the dangers of trying to pick learning rates myopically.
 
-</details>
-
 #### Round 2
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 -   Run the best hyperparameter configuration from Round 1.
 -   **(Speculation)** 🤖 Use the extra steps to extend the period of training at
@@ -1358,8 +1264,6 @@ should be tuned at all.*
             up.
         -   New ideas go through a pipeline that progressively derisks them
             using increasingly long-running experiments from Step i to Step i+1.
-
-</details>
 
 ## Additional guidance for the training pipeline
 
@@ -1400,10 +1304,6 @@ evaluations at regular step intervals, not regular time intervals.*
 
 #### Evaluation settings
 
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
-
 -   There are several settings in which we can evaluate the performance of our
     models.
     -   **Online evaluation** - metrics are collected when the model is serving
@@ -1424,13 +1324,7 @@ evaluations at regular step intervals, not regular time intervals.*
         offline evaluation, without sacrificing the reliability of the signal we
         get during training.
 
-</details>
-
 #### Setting up periodic evaluations
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 -   We run periodic evaluations during training to monitor its progress in real
     time, to
@@ -1465,13 +1359,7 @@ evaluations at regular step intervals, not regular time intervals.*
         [SavedModels](https://www.tensorflow.org/guide/saved_model) make it easy
         to do ad-hoc model inspection after evaluation jobs finish.
 
-</details>
-
 #### Choosing a sample for periodic evaluation
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 -   The periodic evaluation job might not run fast enough to compute metrics on
     the full offline evaluation set in a reasonable amount of time. This often
@@ -1498,8 +1386,6 @@ evaluations at regular step intervals, not regular time intervals.*
             the number of examples predicted correctly to get more insight into
             accuracy improvements (.05 sensitivity improvement sounds exciting,
             but was it just one more example correct?).
-
-</details>
 
 ### Saving checkpoints and retrospectively selecting the best checkpoint
 
@@ -1584,10 +1470,6 @@ multi-host training can make it very easy to introduce bugs!*
 
 ### What is the best learning rate decay schedule family?
 
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
-
 -   It’s an open problem. It’s not clear how to construct a set of rigorous
     experiments to confidently answer what the "best" LR decay schedule is.
 -   Although we don't know the best schedule family, we're confident that it’s
@@ -1596,22 +1478,14 @@ multi-host training can make it very easy to introduce bugs!*
     optimization process. Having some sort of schedule makes it more likely for
     the model to hit a good learning rate.
 
-</details>
-
 ### Which learning rate decay should I use as a default?
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 -   Our preference is either linear decay or cosine decay, and a bunch of other
     schedule families are probably good too.
 
-</details>
-
 ### Why do some papers have complicated learning rate schedules?
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 -   It’s not uncommon to see papers with complicated piecewise learning rate
     (LR) decay schedules.
@@ -1636,12 +1510,8 @@ multi-host training can make it very easy to introduce bugs!*
     -   Before publishing results that used such a schedule, please try to make
         it fully reproducible.
 
-</details>
-
 ### How should Adam’s hyperparameters be tuned?
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 -   As discussed above, making general statements about search spaces and how
     many points one should sample from the search space is very difficult. Note
@@ -1654,11 +1524,8 @@ multi-host training can make it very easy to introduce bugs!*
     -   If one can run substantially more than 25 trials, additionally tune
         $\beta_2$.
 
-</details>
-
 ### Why use quasi-random search instead of more sophisticated black box optimization algorithms during the exploration phase of tuning?
 
-<details><summary><em>[Click to expand]</em></summary>
 
 -   Quasi-random search (based on
     [low-discrepancy sequences](https://en.wikipedia.org/wiki/Low-discrepancy_sequence))
@@ -1743,12 +1610,8 @@ multi-host training can make it very easy to introduce bugs!*
     high-parallelism regime since Bayesian optimization has no opportunity to
     observe the results of previous trials.
 
-</details>
-
 ### Where can I find an implementation of quasi-random search?
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 -   We use
     [this implementation](https://github.com/mlcommons/algorithmic-efficiency/blob/main/algorithmic_efficiency/halton.py)
@@ -1762,12 +1625,8 @@ multi-host training can make it very easy to introduce bugs!*
         higher dimensions (see
         [Bergstra & Bengio, 2012](https://www.jmlr.org/papers/v13/bergstra12a.html)).
 
-</details>
-
 ### How many trials are needed to get good results with quasi-random search?
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 <p align="center">
 <img src="assets/have_we_sampled_enough.png" width="49%" alt="A box plot showing the importance of sampling enough">
@@ -1789,12 +1648,8 @@ Box plots of the best performances for each trial budget are plotted above.
         hyperparameters, which for this workload might be around +/- 0.1% on a
         validation error rate of \~23%.
 
-</details>
-
 ### How can optimization failures be debugged and mitigated?
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 
 ***Summary:*** *If the model is experiencing optimization difficulties, it’s
@@ -1977,12 +1832,8 @@ scale).">
 -   If we need to do extremely aggressive gradient clipping to deal with our
     instability issues, then we might as well reduce the learning rate.
 
-</details>
-
 ### Why do you call the learning rate and other optimization parameters hyperparameters? They are not parameters of any prior distribution.
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 -   It is true that the term "hyperparameter" has a precise
     [meaning](https://en.wikipedia.org/wiki/Hyperparameter) in Bayesian machine
@@ -2004,12 +1855,8 @@ scale).">
     paper, and we would encourage others to use "metaparameter" instead in most
     contexts.
 
-</details>
-
 ### Why shouldn't the batch size be tuned to directly improve validation set performance?
 
-<details><summary><em>[Click to expand]</em></summary>
-<br>
 
 -   Changing the batch size *without changing any other details of the training pipeline* will often affect the validation set performance.
 -   However, the difference in validation set performance between two batch sizes typically goes away if the training pipeline is optimized independently for each batch size.
@@ -2018,13 +1865,7 @@ scale).">
 - In addition, [the number of training steps may need to be adjusted](#choosing-the-batch-size-to-minimize-training-time) when changing the batch size.
 -   Once all these effects are taken into account, there is currently no convincing evidence that the batch size affects the maximum achievable validation performance (see [Shallue et al. 2018](https://arxiv.org/abs/1811.03600)).
 
-</details>
-
 ### What are the update rules for all the popular optimization algorithms?
-
-<details><summary><em>[Click to expand]</em></summary>
-
-<br>
 
 #### Stochastic gradient descent (SGD)
 
@@ -2079,8 +1920,6 @@ $$v_{t+1} = \beta_2 v_{t} + (1 - \beta_2) \nabla \mathcal{l} (\theta_t)^2$$
 $$b_{t+1} = \frac{\sqrt{1 - \beta_2^{t+1}}}{1 - \beta_1^{t+1}}$$
 
 $$\theta_{t+1} = \theta_{t} - \alpha_t \frac{\beta_1 m_{t+1} + (1 - \beta_1) \nabla \mathcal{l} (\theta_t)}{\sqrt{v_{t+1}} + \epsilon} b_{t+1}$$
-
-</details>
 
 ## Acknowledgments
 
